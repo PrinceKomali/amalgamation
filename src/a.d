@@ -11,6 +11,7 @@ extern (C) {
     void golang();
     void zig();
     void _lua();
+    void py();
 }
 void main() {
     c();
@@ -24,5 +25,6 @@ void main() {
     golang();
     zig();
     _lua();
+    py();
     writeln("Sent from D");
 }

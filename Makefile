@@ -5,9 +5,10 @@ OBJC_FLAGS := -lgnustep-base -fconstant-string-class=NSConstantString -lobjc
 SWIFT_FLAGS := $(shell test -d helpers || mkdir helpers; if test -f helpers/swift; then ldd helpers/swift | awk '{print $$3}' | tr '\n' ' '; else echo -n 'print("1");' > helpers/swift.swift; swiftc helpers/swift.swift -o helpers/swift; rm helpers/swift.swift; ldd helpers/swift | awk '{print $$3}' | tr '\n' ' '; fi)
 F90_FLAGS := -lgfortran
 LUA_FLAGS := -llua
+PY_FLAGS := $(shell python3-config --cflags --embed --ldflags)
 
-$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o
-	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) build/*
+$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o build/m.o
+	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) $(PY_FLAGS) build/*
 build/a.o: src/a.d
 	gdc -c -o build/a.o src/a.d 
 build/b.o: src/b.c
@@ -39,6 +40,11 @@ build/l.o: src/l.lua
 	lua utils/gen_lua.lua src/l.lua build/l.c 
 	gcc -c  -o build/l.o build/l.c
 	@rm build/l.c
+build/m.o: src/m.py
+	python3 utils/gen_python.py src/m.py build/m.c
+	gcc -c -o build/m.o $(PY_FLAGS) build/m.c 
+	@rm build/m.c
+	
 dircheck: 
 	@mkdir -p build
 	@mkdir -p helpers
