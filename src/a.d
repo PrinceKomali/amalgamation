@@ -9,6 +9,8 @@ extern (C) {
     void fortran();
     void nim();
     void golang();
+    void zig();
+    void _lua();
 }
 void main() {
     c();
@@ -20,5 +22,7 @@ void main() {
     fortran();
     nim();
     golang();
+    zig();
+    _lua();
     writeln("Sent from D");
 }
