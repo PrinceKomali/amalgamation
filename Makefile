@@ -6,9 +6,10 @@ SWIFT_FLAGS := $(shell test -d helpers || mkdir helpers; if test -f helpers/swif
 F90_FLAGS := -lgfortran
 LUA_FLAGS := -llua
 PY_FLAGS := $(shell python3-config --cflags --embed --ldflags)
+RUBY_FLAGS := -lruby -I/usr/include/ruby-3.0.0 -I/usr/include/ruby-3.0.0/x86_64-linux
 
-$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o build/m.o
-	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) $(PY_FLAGS) build/*
+$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o build/m.o build/n.o
+	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) $(PY_FLAGS) $(RUBY_FLAGS) build/*
 build/a.o: src/a.d
 	gdc -c -o build/a.o src/a.d 
 build/b.o: src/b.c
@@ -44,7 +45,12 @@ build/m.o: src/m.py
 	python3 utils/gen_python.py src/m.py build/m.c
 	gcc -c -o build/m.o $(PY_FLAGS) build/m.c 
 	@rm build/m.c
+build/n.o: src/n.rb
+	ruby utils/gen_ruby.rb src/n.rb build/n.c
+	gcc -c -o build/n.o $(RUBY_FLAGS) build/n.c 
+	@rm build/n.c
 	
+
 dircheck: 
 	@mkdir -p build
 	@mkdir -p helpers

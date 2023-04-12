@@ -1,5 +1,5 @@
 # I was bored, okay?
-This project builds a single executable from 13 different languages:
+This project builds a single executable from 14 different languages:
 - C (gcc)
 - D (gdc)
 - Rust
@@ -13,6 +13,7 @@ This project builds a single executable from 13 different languages:
 - Zig  
 - Lua (via <lua.h>)  
 - Python (via <Python.h>)
+- Ruby (via <ruby.h>)
 
 If you want to build this project yourself (are you crazy?) and you use Linux, just make sure you have all the languages installed (along with `gnustep` for Objective C(++)) and run `make`. If you're on Windows, use WSL.
 ## Goals

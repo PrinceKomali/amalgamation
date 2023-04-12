@@ -14,4 +14,4 @@ c = """#include <Python.h>
 int _pinit=0;void py_init() {Py_Initialize(); PyRun_SimpleString(\"""" + script.replace("\n", "\\n").replace('"', '\\"') + "\");}""" + funcs
 o = open(sys.argv[2], "w")
 o.write(c)
-o.close();
+o.close()

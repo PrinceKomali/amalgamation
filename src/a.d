@@ -7,11 +7,12 @@ extern (C) {
     void swift();
     void objcpp();
     void fortran();
+    void py();
     void nim();
+    void ruby();
     void golang();
     void zig();
     void _lua();
-    void py();
 }
 void main() {
     c();
@@ -26,5 +27,6 @@ void main() {
     zig();
     _lua();
     py();
+    ruby();
     writeln("Sent from D");
 }
