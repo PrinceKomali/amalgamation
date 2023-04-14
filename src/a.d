@@ -9,10 +9,11 @@ extern (C) {
     void fortran();
     void py();
     void nim();
-    void ruby();
-    void golang();
     void zig();
+    void ruby();
     void _lua();
+    void golang();
+    void crystal();
 }
 void main() {
     c();
@@ -22,11 +23,12 @@ void main() {
     swift();
     objcpp();
     fortran();
-    nim();
-    golang();
-    zig();
-    _lua();
     py();
+    nim();
+    zig();
     ruby();
+    _lua();
+    golang();
+    crystal();
     writeln("Sent from D");
 }
