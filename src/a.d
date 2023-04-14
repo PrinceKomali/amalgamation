@@ -14,6 +14,7 @@ extern (C) {
     void _lua();
     void golang();
     void crystal();
+    void javascript();
 }
 void main() {
     c();
@@ -30,5 +31,6 @@ void main() {
     _lua();
     golang();
     crystal();
+    javascript();
     writeln("Sent from D");
 }
