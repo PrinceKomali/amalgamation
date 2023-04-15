@@ -11,6 +11,7 @@ extern (C) {
     void nim();
     void zig();
     void ruby();
+    void perl();
     void _lua();
     void golang();
     void crystal();
@@ -31,6 +32,7 @@ void main() {
     _lua();
     golang();
     crystal();
-    javascript();
+    perl();
+    javascript(); // takes a long time for some reason
     writeln("Sent from D");
 }

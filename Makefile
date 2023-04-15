@@ -10,13 +10,15 @@ PY_FLAGS := $(shell python3-config --cflags --embed --ldflags)
 RUBY_FLAGS := -lruby -I/usr/include/ruby-3.0.0 -I/usr/include/ruby-3.0.0/x86_64-linux
 CRYSTAL_FLAGS := -lm -levent -lgc
 JS_FLAGS := -I/usr/include/node -lnode -luv 
+PERL_FLAGS := $(shell perl -MExtUtils::Embed -e ccopts) $(shell perl -MExtUtils::Embed -e ldopts)
+
 
 define rm 
 	@echo -e "\r\x1b[31mRemoving $(1)\x1b[0m"
 	@rm -rf $(1)
 endef
-$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o build/m.o build/n.o build/o.a build/p.o
-	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) $(PY_FLAGS) $(RUBY_FLAGS) $(CRYSTAL_FLAGS) $(JS_FLAGS) build/*
+$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o build/m.o build/n.o build/o.a build/p.o build/q.o
+	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) $(PY_FLAGS) $(RUBY_FLAGS) $(CRYSTAL_FLAGS) $(JS_FLAGS)  build/* $(PERL_FLAGS)
 	
 build/a.o: src/a.d
 	gdc -c -o build/a.o src/a.d 
@@ -69,7 +71,11 @@ build/p.o: src/p.js
 	node utils/gen_js.js src/p.js build/p.cpp
 	g++ -c -o build/p.o build/p.cpp $(JS_FLAGS) 
 	$(call rm,build/p.cpp)
-	
+build/q.o: src/q.pl
+	perl utils/gen_perl.pl src/q.pl build/q.c
+	gcc -c -o build/q.o build/q.c $(PERL_FLAGS)
+	$(call rm,build/q.c)
+
 
 dircheck: 
 	@mkdir -p build
