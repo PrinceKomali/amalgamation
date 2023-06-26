@@ -7,6 +7,7 @@ extern (C) {
     void swift();
     void objcpp();
     void fortran();
+    void v();
     void py();
     void nim();
     void zig();
@@ -27,6 +28,7 @@ void main() {
     swift();
     objcpp();
     fortran();
+    v();
     py();
     nim();
     zig();
