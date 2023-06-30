@@ -21,8 +21,8 @@ define rm
 	@echo -e "\r\x1b[31mRemoving $(1)\x1b[0m"
 	@rm -rf $(1)
 endef
-$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o build/m.o build/n.o build/o.a build/p.o build/q.o build/r.o build/s.a build/t.o
-	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) $(PY_FLAGS) $(RUBY_FLAGS) $(CRYSTAL_FLAGS) $(JS_FLAGS)  build/* $(PERL_FLAGS) $(HASKELL_FLAGS)
+$(TARGET): dircheck build/a.o build/b.o build/c.a build/d.o build/e.o build/f.o build/g.o build/h.o build/i.o build/j.a build/k.a build/l.o build/m.o build/n.o build/o.a build/p.o build/q.o build/r.o build/s.a build/t.o build/u.a
+	gdc $(CXX_FLAGS) $(OBJC_FLAGS) $(SWIFT_FLAGS) $(F90_FLAGS) $(LUA_FLAGS) $(PY_FLAGS) $(RUBY_FLAGS) $(CRYSTAL_FLAGS) $(JS_FLAGS) build/* $(PERL_FLAGS) $(HASKELL_FLAGS)
 	
 build/a.o: src/a.d
 	gdc -c -o build/a.o src/a.d 
@@ -100,12 +100,14 @@ build/s.a: src/s.hs
 	$(call rm,src/*.hi)
 build/t.o:
 	v -o build/t.o src/t.v -c
+build/u.a:
+	haxe --run utils.GenHaxe src/u.hx build/u.a
 dircheck: 
 	@mkdir -p build
 	@mkdir -p helpers
 	@mkdir -p utils
 clean: 
-	rm build/*
-	rm helpers/*
-	rm utils/*cmp
+	rm build/* -rf
+	rm helpers/* -rf
+	rm utils/*cmp -rf
 .PHONY: clean dircheck all
