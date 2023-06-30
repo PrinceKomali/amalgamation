@@ -1,5 +1,5 @@
 # I was bored, okay?
-This project builds a single 31.8-megabyte executable from 19 different languages:
+This project builds a single 31.8-megabyte executable from 20 different languages:
 - C (gcc)
 - D (gdc)
 - Rust
